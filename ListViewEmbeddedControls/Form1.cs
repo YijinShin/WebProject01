@@ -231,13 +231,18 @@ namespace ListViewEmbeddedControls
 				pb.Value = cnt;
 				pb.Click += new EventHandler(pb_Click);
 
+				//type box
 				ComboBox type_comboBox = new ComboBox();
 				type_comboBox.Items.AddRange(todoType); //data initialize
 				type_comboBox.SelectedIndex = 0;
 
-				// Embed the ProgressBar in Column 2
+				//DateTimePicker
+				DateTimePicker dt = new DateTimePicker();
+
+				// Embed the objects in Column 2
 				listView1.AddEmbeddedControl(pb, 1, i.Index);
 				listView1.AddEmbeddedControl(type_comboBox, 2, i.Index);
+				listView1.AddEmbeddedControl(dt, 3, i.Index);
 			}
 
 			// Fill the View ComboBox
