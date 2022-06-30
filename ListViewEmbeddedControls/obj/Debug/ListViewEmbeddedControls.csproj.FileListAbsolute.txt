@@ -1,0 +1,16 @@
+C:\Users\gmoon\Downloads\ListViewEmbeddedControls_src\ListViewEmbeddedControls\bin\Debug\ListViewEmbeddedControls.exe
+C:\Users\gmoon\Downloads\ListViewEmbeddedControls_src\ListViewEmbeddedControls\bin\Debug\ListViewEmbeddedControls.pdb
+C:\Users\gmoon\Downloads\ListViewEmbeddedControls_src\ListViewEmbeddedControls\obj\Debug\ListViewEmbeddedControls.csproj.AssemblyReference.cache
+C:\Users\gmoon\Downloads\ListViewEmbeddedControls_src\ListViewEmbeddedControls\obj\Debug\ListViewEmbeddedControls.Form1.resources
+C:\Users\gmoon\Downloads\ListViewEmbeddedControls_src\ListViewEmbeddedControls\obj\Debug\ListViewEmbeddedControls.csproj.GenerateResource.cache
+C:\Users\gmoon\Downloads\ListViewEmbeddedControls_src\ListViewEmbeddedControls\obj\Debug\ListViewEmbeddedControls.csproj.CoreCompileInputs.cache
+C:\Users\gmoon\Downloads\ListViewEmbeddedControls_src\ListViewEmbeddedControls\obj\Debug\ListViewEmbeddedControls.exe
+C:\Users\gmoon\Downloads\ListViewEmbeddedControls_src\ListViewEmbeddedControls\obj\Debug\ListViewEmbeddedControls.pdb
+C:\Users\User\source\repos\ListViewEmbeddedControls\bin\Debug\ListViewEmbeddedControls.exe
+C:\Users\User\source\repos\ListViewEmbeddedControls\bin\Debug\ListViewEmbeddedControls.pdb
+C:\Users\User\source\repos\ListViewEmbeddedControls\obj\Debug\ListViewEmbeddedControls.csproj.AssemblyReference.cache
+C:\Users\User\source\repos\ListViewEmbeddedControls\obj\Debug\ListViewEmbeddedControls.Form1.resources
+C:\Users\User\source\repos\ListViewEmbeddedControls\obj\Debug\ListViewEmbeddedControls.csproj.GenerateResource.cache
+C:\Users\User\source\repos\ListViewEmbeddedControls\obj\Debug\ListViewEmbeddedControls.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\ListViewEmbeddedControls\obj\Debug\ListViewEmbeddedControls.exe
+C:\Users\User\source\repos\ListViewEmbeddedControls\obj\Debug\ListViewEmbeddedControls.pdb
