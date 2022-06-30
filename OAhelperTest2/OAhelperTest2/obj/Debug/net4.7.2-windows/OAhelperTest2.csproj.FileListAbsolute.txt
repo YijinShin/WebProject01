@@ -1,0 +1,6 @@
+C:\Users\User\source\repos\OAhelperTest2\OAhelperTest2\obj\Debug\net4.7.2-windows\OAhelperTest2.csproj.AssemblyReference.cache
+C:\Users\User\source\repos\OAhelperTest2\OAhelperTest2\obj\Debug\net4.7.2-windows\OAhelperTest2.Form1.resources
+C:\Users\User\source\repos\OAhelperTest2\OAhelperTest2\obj\Debug\net4.7.2-windows\OAhelperTest2.csproj.GenerateResource.cache
+C:\Users\User\source\repos\OAhelperTest2\OAhelperTest2\obj\Debug\net4.7.2-windows\OAhelperTest2.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\OAhelperTest2\OAhelperTest2\obj\Debug\net4.7.2-windows\OAhelperTest2.AssemblyInfo.cs
+C:\Users\User\source\repos\OAhelperTest2\OAhelperTest2\obj\Debug\net4.7.2-windows\OAhelperTest2.csproj.CoreCompileInputs.cache

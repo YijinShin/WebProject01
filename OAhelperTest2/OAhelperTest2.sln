@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31515.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAhelperTest2", "OAhelperTest2\OAhelperTest2.csproj", "{A87580F3-54CB-490E-A63B-864A287CA8AE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A87580F3-54CB-490E-A63B-864A287CA8AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A87580F3-54CB-490E-A63B-864A287CA8AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A87580F3-54CB-490E-A63B-864A287CA8AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A87580F3-54CB-490E-A63B-864A287CA8AE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9E54D453-BB56-4816-A679-D031BD5D0CF5}
+	EndGlobalSection
+EndGlobal
