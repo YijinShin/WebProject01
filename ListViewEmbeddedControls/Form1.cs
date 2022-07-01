@@ -1,36 +1,42 @@
 using System;
 using System.Drawing;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 using System.Data;
 
 namespace ListViewEmbeddedControls
 {
-	/// <summary>
-	/// Zusammenfassung f? Form1.
-	/// </summary>
-	public class Form1 : System.Windows.Forms.Form
-	{
-		private ListViewEx listView1;
-		private System.Windows.Forms.ColumnHeader columnHeader1;
-		private System.Windows.Forms.ColumnHeader columnHeader2;
-		private System.Windows.Forms.ColumnHeader columnHeader4;
-		private System.Windows.Forms.Timer timer1;
-		private System.Windows.Forms.ComboBox comboBox1;
-		private System.Windows.Forms.ImageList imageList1;
-		private System.Windows.Forms.Label label1;
+    /// <summary>
+    /// Zusammenfassung f? Form1.
+    /// </summary>
+    public class Form1 : System.Windows.Forms.Form
+    {
+        private ListViewEx listView1;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label1;
         private ColumnHeader columnHeader3;
         private System.ComponentModel.IContainer components;
+        private BackgroundWorker backgroundWorker1;
+        private BackgroundWorker backgroundWorker2;
+        private DevExpress.XtraEditors.SimpleButton simpleButton1;
+        String selectedDate;
+        Label selectedDateLabel;
 
-		private String[] todoType = { "(none)", "a", "b", "c" }; //type_combobox testdata
+        //Test data
+        private String[] todoType = { "(none)", "a", "b", "c" }; //type_combobox testdata			
+        private List<String> todoContents = new List<String>() { "111", "222" ,"333" };
+        private DevExpress.XtraEditors.Controls.CalendarControl calendarControl1;
+        private List<System.Windows.Forms.ListViewItem> itemList = new List<System.Windows.Forms.ListViewItem>();
+        private List<Label> dateLabelList = new List<Label>();
 
-		public Form1()
+        public Form1()
 		{
-			//
-			// Erforderlich f? die Windows Form-Designerunterst?zung
-			//
-			InitializeComponent();
+          InitializeComponent();
 		}
 
 		/// <summary>
@@ -55,27 +61,50 @@ namespace ListViewEmbeddedControls
 		/// </summary>
 		private void InitializeComponent()
 		{
-            this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
-            "",
-            "aaa"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("");
+            //initial list item setting
+            for(int i = 0; i < todoContents.Count; i++)
+            {
+                //list item add
+                System.Windows.Forms.ListViewItem item = new System.Windows.Forms.ListViewItem(todoContents[i]);
+                item.StateImageIndex = 0;
+                itemList.Add(item);
+
+                //date label add
+                Label label = new Label();
+                label.Click += new EventHandler(dateLabe_Click);
+                dateLabelList.Add(label);
+            }
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.listView1 = new ListViewEmbeddedControls.ListViewEx();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
+            this.calendarControl1 = new DevExpress.XtraEditors.Controls.CalendarControl();
+            ((System.ComponentModel.ISupportInitialize)(this.calendarControl1.CalendarTimeProperties)).BeginInit();
             this.SuspendLayout();
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.Location = new System.Drawing.Point(19, 536);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(154, 20);
+            this.comboBox1.TabIndex = 1;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(19, 17);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(423, 17);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "The columns can be reordered and sorted";
             // 
             // listView1
             // 
@@ -92,37 +121,18 @@ namespace ListViewEmbeddedControls
             this.listView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listView1.FullRowSelect = true;
             this.listView1.HideSelection = false;
-            listViewItem1.StateImageIndex = 0;
-            listViewItem1.UseItemStyleForSubItems = false;
-            listViewItem2.StateImageIndex = 0;
-            listViewItem3.StateImageIndex = 0;
-            listViewItem4.StateImageIndex = 0;
-            listViewItem5.StateImageIndex = 0;
-            listViewItem6.StateImageIndex = 0;
-            listViewItem7.StateImageIndex = 0;
-            listViewItem8.StateImageIndex = 0;
-            this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3,
-            listViewItem4,
-            listViewItem5,
-            listViewItem6,
-            listViewItem7,
-            listViewItem8});
             this.listView1.Location = new System.Drawing.Point(19, 34);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(362, 236);
+            this.listView1.Size = new System.Drawing.Size(703, 493);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
             this.listView1.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView1_ColumnClick);
-            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Text = "Check";
-            this.columnHeader1.Width = 40;
+            this.columnHeader1.Text = " ";
+            this.columnHeader1.Width = 30;
             // 
             // columnHeader2
             // 
@@ -139,49 +149,41 @@ namespace ListViewEmbeddedControls
             this.columnHeader4.Text = "Date";
             this.columnHeader4.Width = 121;
             // 
-            // imageList1
+            // simpleButton1
             // 
-            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.simpleButton1.Location = new System.Drawing.Point(50, 484);
+            this.simpleButton1.Name = "simpleButton1";
+            this.simpleButton1.Size = new System.Drawing.Size(89, 23);
+            this.simpleButton1.TabIndex = 4;
+            this.simpleButton1.Text = "addItem";
+            this.simpleButton1.Click += new System.EventHandler(this.simpleButton1_Click);
             // 
-            // timer1
+            // calendarControl1
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.Location = new System.Drawing.Point(19, 279);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(154, 20);
-            this.comboBox1.TabIndex = 1;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(19, 17);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(423, 17);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "The columns can be reordered and sorted";
+            this.calendarControl1.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.calendarControl1.Location = new System.Drawing.Point(443, 102);
+            this.calendarControl1.Name = "calendarControl1";
+            this.calendarControl1.Size = new System.Drawing.Size(239, 245);
+            this.calendarControl1.TabIndex = 5;
+            this.calendarControl1.DateTimeChanged += new System.EventHandler(this.calendarControl1_DateTimeChange);
+            this.calendarControl1.Visible = false;
             // 
             // Form1
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(6, 14);
-            this.ClientSize = new System.Drawing.Size(400, 302);
+            this.ClientSize = new System.Drawing.Size(741, 559);
+            this.Controls.Add(this.calendarControl1);
+            this.Controls.Add(this.simpleButton1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.listView1);
             this.Name = "Form1";
             this.Text = "Sample for Controls embedded in a ListView";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.calendarControl1.CalendarTimeProperties)).EndInit();
             this.ResumeLayout(false);
-			
-
-
+            this.PerformLayout();
 
 		}
 		#endregion
@@ -197,53 +199,39 @@ namespace ListViewEmbeddedControls
 		}
 
 		private void Form1_Load(object sender, System.EventArgs e)
-		{
-			// Create some controls and embed them in our ListView
-			/* First, a button:
-			Button b = new Button();
-			b.Text = "ClickMe";
-			b.BackColor = SystemColors.Control;
-			b.Font = this.Font;
-			b.Click += new EventHandler(b_Click);
-			// Put it in the first column of the fourth row
-			listView1.AddEmbeddedControl(b, 0, 3);
-			*/
+        {
+            //add item to listview
+            for (int i = 0; i < todoContents.Count; i++)
+            {
+                ComboBox type_comboBox = new ComboBox();
+                type_comboBox.Items.AddRange(todoType); //data initialize
+                type_comboBox.SelectedIndex = 0;
 
-			// Second, a RichTextBox (slightly modified to make it non-selectable)
-			ReadOnlyRichTextBox rtb = new ReadOnlyRichTextBox();
-			rtb.ScrollBars = RichTextBoxScrollBars.None;
-			rtb.BorderStyle = BorderStyle.None;
-			rtb.WordWrap = false;
-			rtb.BackColor = Color.White;
-			rtb.Cursor = Cursors.Default;
-			rtb.Rtf = @"{\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fnil\fcharset0 Arial;}}{\colortbl ;\red255\green0\blue0;}\viewkind4\uc1\pard\fs14 Sample\cf1\b\fs20 Entry\cf0\par}";
-			// Embed it
-			listView1.AddEmbeddedControl(rtb, 2, 5);
+                listView1.Items.Add(itemList[i]);
+                listView1.AddEmbeddedControl(dateLabelList[i], 3, i);
+                listView1.AddEmbeddedControl(type_comboBox, 2, i);
+            }
 
-			// Third, a number of ProcessBars that will be updated by a timer
-			Random r = new Random();
-			foreach (ListViewItem i in listView1.Items)
+            /*
+            foreach (ListViewItem i in listView1.Items)
 			{
-				int cnt = r.Next(100);
-				i.SubItems.Add(cnt.ToString());
-
-				ProgressBar pb = new ProgressBar();
-				pb.Value = cnt;
-				pb.Click += new EventHandler(pb_Click);
-
 				//type box
 				ComboBox type_comboBox = new ComboBox();
 				type_comboBox.Items.AddRange(todoType); //data initialize
 				type_comboBox.SelectedIndex = 0;
 
-				//DateTimePicker
-				DateTimePicker dt = new DateTimePicker();
+                //DateTimePicker
+                //teTimePicker dt = new DateTimePicker();
+
+                //label
+                //System.Windows.Forms.Label calendarLabel = new System.Windows.Forms.Label();
+                //calendarLabel.Click += new EventHandler(DatePicker);
+                //listView1.contro
 
 				// Embed the objects in Column 2
-				listView1.AddEmbeddedControl(pb, 1, i.Index);
 				listView1.AddEmbeddedControl(type_comboBox, 2, i.Index);
-				listView1.AddEmbeddedControl(dt, 3, i.Index);
-			}
+				//listView1.AddEmbeddedControl(calendarLabel, 3, i.Index);
+			}*/
 
 			// Fill the View ComboBox
 			Array a = Enum.GetValues(typeof(View));
@@ -253,49 +241,22 @@ namespace ListViewEmbeddedControls
 			}
 			// Default view is Details
 			comboBox1.Text = View.Details.ToString();
+
+            //listView1.EndUpdate(); 
 		}
 
-		private void b_Click(object sender, EventArgs e)
-		{
-			MessageBox.Show(this, "Thank you!");
-		}
+        public void dateLabe_Click(object sender, EventArgs arg)
+        {
+            Label selectedLabel = sender as Label;
+            calendarControl1.Location = new Point(selectedLabel.Location.X + selectedLabel.Width, selectedLabel.Location.Y + selectedLabel.Height);
+            calendarControl1.Visible = true;
+            selectedDateLabel = selectedLabel;
 
-		// Once an embedded ProgressBar is clicked, it's removed from the ListView.
-		// This way the ListViewSubItem's Text value becomes visible.
-		private void pb_Click(object sender, EventArgs e)
-		{
-			listView1.RemoveEmbeddedControl(sender as Control);
-		}
-
-		// Update embedded ProgressBars
-		private Random rnd = new Random();
-		private void timer1_Tick(object sender, System.EventArgs e)
-		{
-			int row = rnd.Next(listView1.Items.Count);
-
-			ProgressBar pb = listView1.GetEmbeddedControl(1, row) as ProgressBar;
-			if (pb==null)
-			{
-				int val = int.Parse(listView1.Items[row].SubItems[1].Text);
-				val += 5;
-				if (val>100)
-					val=0;
-
-				listView1.Items[row].SubItems[1].Text = val.ToString();
-				return;
-			}
-
-			if (pb.Value >= pb.Maximum-5)
-				pb.Value = pb.Minimum;
-			else
-				pb.Value += 5;
-
-			listView1.Items[row].SubItems[1].Text = pb.Value.ToString();
-		}
+        }
 
 
-		// Switch ListView View
-		private void comboBox1_SelectedIndexChanged(object sender, System.EventArgs e)
+        // Switch ListView View
+        private void comboBox1_SelectedIndexChanged(object sender, System.EventArgs e)
 		{
 			View v = (View)Enum.Parse(typeof(View),comboBox1.Text,true);
 			listView1.View = v;
@@ -316,9 +277,20 @@ namespace ListViewEmbeddedControls
 			}
 		}
 
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        private void calendarControl1_DateTimeChange(object sender, EventArgs e)
         {
+            DevExpress.XtraEditors.Controls.CalendarControl cc = sender as DevExpress.XtraEditors.Controls.CalendarControl;
+            selectedDate = cc.DateTime.ToString("yy.MM.dd (ddd)");
+            selectedDateLabel.Text = selectedDate;
+            //MessageBox.Show(selectedDate);
+            cc.Visible = false;
+        }
 
+        private void simpleButton1_Click(object sender, EventArgs e)
+        {
+           
+            todoContents.Add(" - - - ");
+            //dateLabelList.Add( )
         }
     }
 }
